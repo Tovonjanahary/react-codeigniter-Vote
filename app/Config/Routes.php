@@ -33,6 +33,25 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+// eleves routes:
+$routes->get("/eleves", 'ElevesController::index');
+$routes->match(['post','get'], '/creerEleve', 'ElevesController::creerEleve');
+$routes->match(['post','get'], '/afficher_simple_eleve/(:num)', 'ElevesController::afficher_simple_eleve/$1');
+$routes->match(['post','get'], '/showCount/(:num)', 'ElevesController::showCount/$1');
+$routes->patch('/signup/(:any)', 'ElevesController::signup/$1');
+$routes->match(['post','get'], '/signin', 'ElevesController::signin');
+$routes->delete('/supprimerEleve/(:num)', 'ElevesController::supprimerEleve/$1');
+$routes->get('/afficherEleve', 'ElevesController::afficherEleve');
+$routes->patch('/modifierPresident/(:num)', 'ElevesController::modifier_id_president/$1');
+
+// president routes;
+$routes->get("/afficherCandidat", 'PresidentController::afficherCandidat');
+$routes->get("/afficher_un_president/(:num)", 'PresidentController::afficher_un_president/$1');
+$routes->post("/ajouterCandidat", 'PresidentController::creerCandidat');
+$routes->delete('/supprimerPresident/(:num)', 'PresidentController::supprimerCandidat/$1');
+$routes->patch('/modifier_president/(:num)','PresidentController::modifier_president/$1' );
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

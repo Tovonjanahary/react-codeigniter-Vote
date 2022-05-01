@@ -1,0 +1,6 @@
+CRITICAL - 2022-05-01 07:15:37 --> Call to a member function getValueLine() on null
+#0 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(825): App\Controllers\ElevesController->afficherEleve()
+#1 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController()
+#2 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest()
+#3 /var/www/html/react-codeigniter-Vote/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
