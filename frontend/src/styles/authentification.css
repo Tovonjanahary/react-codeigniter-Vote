@@ -1,0 +1,29 @@
+.btn-authentification {
+    outline: none;
+    background-color: grey;
+}
+
+.btn-authentification a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+
+.btn-authentification a:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.authentification {
+    max-width: 500px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.signup {
+    max-width: 500px;
+}
+

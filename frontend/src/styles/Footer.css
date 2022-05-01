@@ -1,0 +1,13 @@
+.footer {
+    background-color: #777;
+    color: #ddd;
+}
+.footer p {
+    text-transform: uppercase;
+    color: #ccc;
+}
+
+#copyright {
+    border-top: 1px solid #ddd;
+    width: 1000px;
+}

@@ -1,0 +1,11 @@
+.accueil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.accueil a{
+    text-decoration: none;
+    color: rgb(63, 58, 58);
+}

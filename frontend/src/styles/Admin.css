@@ -1,0 +1,82 @@
+.sidebar {
+    height: 80vh;
+    
+}
+
+.candidat {
+    display: flex;
+    justify-content: center;
+    margin-left: 40px;
+}
+
+.list-gestion {
+    display: block;
+}
+
+.list-gestion a {
+    text-decoration: none;
+    color: #333;
+}
+
+.list-gestion-content {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.list-gestion-content.b-active a{
+    background-color: #777;
+    width: 100%;
+    color: #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.admin-title {
+    background-color: rgb(241, 239, 239);
+    border-radius: 7px;
+    color: #777;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 15px;
+}
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+thead {
+    background-color: #bebcbc;
+}
+
+.Action_president {
+    border-style: none;
+    outline: none;
+    color: #333;
+}
+
+.Action_president a {
+    text-decoration: none;
+    color: #333;
+}
+
+.Action_president a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+.Action_president.supprimer {
+    background-color: #754747;
+    color: #ccc;
+}
