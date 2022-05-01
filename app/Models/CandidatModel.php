@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class CandidatModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'candidats';
-    protected $primaryKey       = 'id';
+    protected $table            = 'president';
+    protected $primaryKey       = 'id_president';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nom', 'prenom', 'email', 'telephone', 'photo'];
 
     // Dates
     protected $useTimestamps = false;
