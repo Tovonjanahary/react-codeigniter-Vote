@@ -4,3 +4,9 @@ CRITICAL - 2022-05-01 07:15:37 --> Call to a member function getValueLine() on n
 #2 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest()
 #3 /var/www/html/react-codeigniter-Vote/index.php(37): CodeIgniter\CodeIgniter->run()
 #4 {main}
+CRITICAL - 2022-05-01 08:51:46 --> Class 'App\Models\PresidentModel' not found
+#0 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(825): App\Controllers\CandidatsController->afficherCandidat()
+#1 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController()
+#2 /var/www/html/react-codeigniter-Vote/system/CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest()
+#3 /var/www/html/react-codeigniter-Vote/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}

@@ -45,11 +45,11 @@ $routes->get('/afficherEleve', 'ElevesController::afficherEleve');
 $routes->patch('/modifierPresident/(:num)', 'ElevesController::modifier_id_president/$1');
 
 // president routes;
-$routes->get("/afficherCandidat", 'PresidentController::afficherCandidat');
-$routes->get("/afficher_un_president/(:num)", 'PresidentController::afficher_un_president/$1');
-$routes->post("/ajouterCandidat", 'PresidentController::creerCandidat');
-$routes->delete('/supprimerPresident/(:num)', 'PresidentController::supprimerCandidat/$1');
-$routes->patch('/modifier_president/(:num)','PresidentController::modifier_president/$1' );
+$routes->get("/afficherCandidat", 'CandidatsController::afficherCandidat');
+$routes->get("/afficher_un_president/(:num)", 'CandidatsController::afficher_un_president/$1');
+$routes->post("/ajouterCandidat", 'CandidatsController::creerCandidat');
+$routes->delete('/supprimerPresident/(:num)', 'CandidatsController::supprimerCandidat/$1');
+$routes->patch('/modifier_president/(:num)','CandidatsController::modifier_president/$1' );
 
 
 /*

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\PresidentModel;
+use App\Models\CandidatModel;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -18,7 +18,7 @@ class CandidatsController extends ResourceController
     {
         // rechercher tous les candidats president
         if($this->request->getMethod() == 'get'){
-            $model = new PresidentModel();
+            $model = new CandidatModel();
             $data = $model->findAll();
             return $this->respond($data);
         }
@@ -31,7 +31,7 @@ class CandidatsController extends ResourceController
      */
     public function afficher_un_president($id = null)
     {
-        $model = new PresidentModel();
+        $model = new CandidatModel();
         $data = $model->find(['id_president'=> $id]);
         if(!$data) return $this->FailNotFound("donnee introuvable");
         return $this->respond($data[0]);
@@ -96,7 +96,7 @@ class CandidatsController extends ResourceController
             return $this->respond($response);
         } else {
             // creer un candidat president
-            $model = new PresidentModel;
+            $model = new CandidatModel;
             $model->insert($data);
 
             $response = [
@@ -171,7 +171,7 @@ class CandidatsController extends ResourceController
            return $this->respond($response);
         }else {  
            // modifier un eleve
-           $model = new PresidentModel();
+           $model = new CandidatModel();
            $eleve = $model->update($id, $data);
    
            $response = [
@@ -194,7 +194,7 @@ class CandidatsController extends ResourceController
     public function supprimerCandidat($id = null)
     {
         //
-        $model = new PresidentModel();
+        $model = new CandidatModel();
         $data = $model->find(['id_president'=> $id]);
         if(!$data) return $this->FailNotFound("donnee introuvable");
 
