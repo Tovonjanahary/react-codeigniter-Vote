@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\PresidentModel;
+use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
 
 class CandidatsController extends ResourceController
@@ -11,9 +13,15 @@ class CandidatsController extends ResourceController
      *
      * @return mixed
      */
-    public function index()
+    use ResponseTrait;
+    public function afficherCandidat()
     {
-        //
+        // rechercher tous les candidats president
+        if($this->request->getMethod() == 'get'){
+            $model = new PresidentModel();
+            $data = $model->findAll();
+            return $this->respond($data);
+        }
     }
 
     /**
@@ -21,9 +29,12 @@ class CandidatsController extends ResourceController
      *
      * @return mixed
      */
-    public function show($id = null)
+    public function afficher_un_president($id = null)
     {
-        //
+        $model = new PresidentModel();
+        $data = $model->find(['id_president'=> $id]);
+        if(!$data) return $this->FailNotFound("donnee introuvable");
+        return $this->respond($data[0]);
     }
 
     /**
@@ -41,9 +52,65 @@ class CandidatsController extends ResourceController
      *
      * @return mixed
      */
-    public function create()
+    public function creerCandidat()
     {
-        //
+        $rules = [
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required',
+            'telephone' => 'required',
+        ];
+
+        $messages = [
+            'nom' => [
+                'required' => 'veuillez completez le nom'
+            ],
+            'prenom' => [
+                'required' => 'veuillez completez le prenom'
+            ],
+            'email' => [
+                'required' => 'veuillez completez le email'
+            ],
+            'telephone' => [
+                'required' => 'veuillez completez le numero de telephone'
+            ]
+        ];
+
+        $data = [
+            'nom' => $this->request->getVar('nom'),
+            'prenom' => $this->request->getVar('prenom'),
+            'email' => $this->request->getVar('email'),
+            'telephone' => $this->request->getVar('telephone'),
+        ];
+
+        $validation = \Config\Services::validation();
+
+        if(!$this->validate($rules, $messages)) {
+            // $errorMessage = $this->validator;
+            $response = [
+                'status'=> 400,
+                'message'=> [
+                    'error'=> "veuillez completez la formulaire",
+                ],
+            ];
+            return $this->respond($response);
+        } else {
+            // creer un candidat president
+            $model = new PresidentModel;
+            $model->insert($data);
+
+            $response = [
+                'status'=> 201,
+                'error'=> null,
+                'messages'=> [
+                    'success'=> " Candidat cree avec succes !"
+                ],
+                'data' => $model
+            ];
+
+            return $this->respondCreated($response);
+        }
+        
     }
 
     /**
@@ -61,9 +128,62 @@ class CandidatsController extends ResourceController
      *
      * @return mixed
      */
-    public function update($id = null)
+    public function modifier_president($id = null)
     {
-        //
+        $rules = [
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required',
+            'telephone' => 'required',
+        ];
+
+        $messages = [
+            'nom' => [
+                'required' => 'veuillez completez le nom'
+            ],
+            'prenom' => [
+                'required' => 'veuillez completez le prenom'
+            ],
+            'email' => [
+                'required' => 'veuillez completez le email'
+            ],
+            'telephone' => [
+                'required' => 'veuillez completez le numero de telephone'
+            ]
+        ];
+
+        $data = [
+            'nom' => $this->request->getVar('nom'),
+            'prenom' => $this->request->getVar('prenom'),
+            'email' => $this->request->getVar('email'),
+            'telephone' => $this->request->getVar('telephone'),
+        ];
+
+        $validation = \Config\Services::validation();
+
+        if(!$this->validate($rules, $messages)) {
+           $response = [
+               'status'=> 400,
+               'message'=> [
+                   'error'=> "veuillez completez d'abord la formulaire"
+               ]
+           ];
+           return $this->respond($response);
+        }else {  
+           // modifier un eleve
+           $model = new PresidentModel();
+           $eleve = $model->update($id, $data);
+   
+           $response = [
+               'status'=> 201,
+               'error'=> null,
+               'message'=> [
+                   'success'=> "modifiee avec success"
+               ]
+           ];
+           
+           return $this->respond($response);
+        }
     }
 
     /**
@@ -71,8 +191,23 @@ class CandidatsController extends ResourceController
      *
      * @return mixed
      */
-    public function delete($id = null)
+    public function supprimerCandidat($id = null)
     {
         //
+        $model = new PresidentModel();
+        $data = $model->find(['id_president'=> $id]);
+        if(!$data) return $this->FailNotFound("donnee introuvable");
+
+        $model->delete($id);
+
+        $response = [
+            'status'=> 201,
+            'error'=> null,
+            'messages'=> [
+                'success'=> "candidat supprimee avec succes"
+            ]
+        ];
+        
+        return $this->respond($response);
     }
 }
