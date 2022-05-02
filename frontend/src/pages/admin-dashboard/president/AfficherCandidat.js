@@ -7,20 +7,22 @@ const AfficherCandidat = () => {
 
     const [president, setPresident] = useState();
 
-    const getPresident = async () => {
-        const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
-        setPresident(data);
+    const getCandidat = async () => {
+        await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
     }
 
     useEffect(() => {
-      getPresident();
-
-    });
+      const abortCont = new AbortController();
+      (async function getPresident() {
+        const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat",{signal: abortCont.signal});
+        setPresident(data);
+      })();
+      return () => abortCont.abort();
+    },[]);
 
     const SupprimerPresident =  async (id) => {
-        const res = await axios.delete(`http://localhost:80/react-codeigniter-Vote/supprimerPresident/${id}`);
-        console.log(res);
-        getPresident();
+        await axios.delete(`http://localhost:80/react-codeigniter-Vote/supprimerPresident/${id}`);
+        getCandidat();
     };
 
   return (

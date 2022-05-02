@@ -17,9 +17,9 @@ const ModifierCandidat = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await axios.patch(`http://localhost:80/react-codeigniter-Vote/modifier_president/${id}`,{ nom, prenom, email, telephone });
-            if(data.data.status !== 201){
-                setError(data.data.message.error);
+            const {data} = await axios.patch(`http://localhost:80/react-codeigniter-Vote/modifier_president/${id}`,{ nom, prenom, email, telephone });
+            if(data.status !== 201){
+                setError(data.message.error);
                 console.log(data);
             } else {
                 window.location.href="/candidat";
@@ -31,13 +31,15 @@ const ModifierCandidat = () => {
     };
 
     useEffect(() => {
+        const abortCont = new AbortController();
         (async function getCandidat(){
-            const { data } = await axios.get(`http://localhost:80/react-codeigniter-Vote/afficher_un_president/${id}`);
+            const { data } = await axios.get(`http://localhost:80/react-codeigniter-Vote/afficher_un_president/${id}`,{signal:abortCont.signal});
             setnom(data.nom);
             setprenom(data.prenom);
             setEmail(data.email);
             setTelephone(data.telephone);
         }())       
+        return () => abortCont.abort();
     },[id]);
 
   return (

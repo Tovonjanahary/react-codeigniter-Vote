@@ -40,11 +40,9 @@ const Connexion = () => {
 
     useEffect(() => {
         if(eleve) {
-            console.log(eleve)
             // history.push("/");
             window.location.href= "/";
         }
-        // console.log(eleve);
     },[history,eleve])
 
     const variants = {

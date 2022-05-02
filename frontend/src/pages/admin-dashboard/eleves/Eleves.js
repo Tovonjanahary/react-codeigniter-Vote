@@ -2,22 +2,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Eleves = () => {
-
+    
     const [eleve, setEleve] = useState(false);
 
-    const getData = async () => {
-        const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/eleves");
+    const getEleve = async() => {
+        const {data} = await axios.get("http://localhost:80/react-codeigniter-Vote/eleves");
         setEleve(data);
     }
-
+    
     useEffect(() => {
-        getData();
-    });
+        const abortCont = new AbortController();
+        (async function getData(){
+            const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/eleves",{signal: abortCont.signal});
+            setEleve(data);
+        })();
+        
+        return () => abortCont.abort();
+    },[]);
 
     const SupprimerEleve =  async (id) => {
-        const res = await axios.delete(`http://localhost:80/react-codeigniter-Vote/supprimerEleve/${id}`);
-        console.log(res);
-        getData();
+        await axios.delete(`http://localhost:80/react-codeigniter-Vote/supprimerEleve/${id}`);
+        getEleve();
     };
 
 

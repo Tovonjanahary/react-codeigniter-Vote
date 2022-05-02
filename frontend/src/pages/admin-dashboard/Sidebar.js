@@ -9,7 +9,6 @@ const Sidebar = ({children}) => {
     const { eleve } = VoteState();
     
     const [active, setActive] = useState(false);
-    console.log(active)
 
     useEffect(() => {
         if((eleve && eleve.isAdmin !== "1") || (eleve === false)) {

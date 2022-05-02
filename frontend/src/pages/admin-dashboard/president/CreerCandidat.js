@@ -17,19 +17,17 @@ const CreerCandidat = () => {
 
     useEffect(() => {
       getPresident();
-
     });
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const data = await axios.post("http://localhost:80/react-codeigniter-Vote/ajouterCandidat", {nom, prenom, email, telephone});
-            if(data.data.status !== 201){
-                setError(data.data.message.error);
-                console.log(data);
+            const {data} = await axios.post("http://localhost:80/react-codeigniter-Vote/ajouterCandidat", {nom, prenom, email, telephone});
+            if(data.status !== 201){
+                setError(data.message.error);
                 getPresident();
             } else {
             // history.push(`/signup/${data.data.data}`);
-            console.log("ajoutee");
             }
         } catch (error) {
             console.log(error);

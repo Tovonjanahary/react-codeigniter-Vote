@@ -17,18 +17,16 @@ const Vote = () => {
             // window.location.href= "/connexion";
         }
     },[history,eleve]);
-  
-    const getPresident = async () => {
-        const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
-        setPresident(data);
-        setLoading(false);
-    };
 
     useEffect(() => {
-        setTimeout(() => {
-            getPresident();
-        },1000);
-    });
+        const abortCont = new AbortController();
+        (async function getPresident() {
+            const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat",{signal: abortCont.signal});
+            setPresident(data);
+            setLoading(false);
+        })();
+        return () => abortCont.abort();
+    },[]);
     
     const variants = {
         visible: {
