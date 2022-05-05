@@ -72,7 +72,7 @@ const AjouterAdmin = () => {
                 </div>
             </section>
             <div className="col-lg-5">
-                <img src="vote_3.jpg" className="img-fluid d-none d-md-block ms-5" alt="signin" />
+                <img src="vote_3.jpg" className="img-fluid d-none d-md-block ms-5" alt="admin" />
             </div>
         </div>
     )

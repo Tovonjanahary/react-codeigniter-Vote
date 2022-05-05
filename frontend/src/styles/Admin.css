@@ -18,18 +18,28 @@
     color: #333;
 }
 
-.list-gestion-content {
+.list-gestion a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+.list-gestion li {
     margin-top: 30px;
     display: flex;
     align-items: center;
 }
 
-.list-gestion-content.b-active a{
+.active {
     background-color: #777;
     width: 100%;
-    color: #ccc;
+    color: #ddd;
     padding: 5px;
     border-radius: 5px;
+    outline-style: none;
+}
+
+.active a:hover {
+    color: #ddd;
 }
 
 .admin-title {

@@ -12,13 +12,8 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import President from './pages/candidat/President';
 import { AnimatePresence } from "framer-motion";
-import Candidat from './pages/admin-dashboard/president/Candidat';
-import Sidebar from './pages/admin-dashboard/Sidebar';
-import Eleves from './pages/admin-dashboard/eleves/Eleves';
 import ModifierCandidat from './pages/admin-dashboard/president/ModifierCandidat';
-import AjouterAdmin from './pages/admin-dashboard/AjouterAdmin';
-// import Candidat from './pages/admin-dashboard/Candidat';
-// import SideLayout from './pages/admin-dashboard/SideLayout';
+import AdminDashboard from './pages/admin-dashboard/AdminDashboard';
 
 function App() {
 
@@ -39,11 +34,7 @@ function App() {
               <Route path="/profile/:id" component={Profile} />
               <Route path="/president/:id" component={President} />
               <Route path="/modifierPresident/:id" component={ModifierCandidat} />
-              <Sidebar>
-                <Route path="/candidat" component={Candidat} />
-                <Route path="/eleve" component={Eleves} />
-                <Route path="/ajouterAdmin" component={AjouterAdmin} />
-              </Sidebar>
+              <Route path="/adminDashboard" component={AdminDashboard} />
               <Route path="*" component={NotFound} />
             </Switch>
           </AnimatePresence>

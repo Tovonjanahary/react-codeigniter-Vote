@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom/cjs/react-router-dom.min";
 import { VoteState } from "../../context/VoteContext";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ const Connexion = () => {
     const initialeState = { email: "", password: ""};
     const [state, setState] = useState(initialeState);
     const { email, password } = state;
+    const[passwordError,setPasswordError] = useState(false);
     const history = useHistory();
     const [error, setError] = useState("");
 
@@ -26,7 +27,12 @@ const Connexion = () => {
         try {
             const { data } = await axios.post("http://localhost:80/react-codeigniter-Vote/signin", {...state});
             if(data.status !== 201) {
+                state.email = "";
+                state.password = "";
                 setError(data.message.error);
+                if(data.message.error === 'mot de passe incorrect') {
+                    setPasswordError(true);
+                }
             }else{
                 localStorage.setItem('premierLogin', JSON.stringify(data));
                 console.log(data);
@@ -74,7 +80,7 @@ const Connexion = () => {
                         <label htmlFor="password">mot de passe</label>
                         <input type="password" name="password" className="form-control my-2" value={password} onChange={handleChange}/>
                     </div>
-                    <Button type="submit" className="btn btn-secondary">Connexion</Button>
+                    <button type="submit" className={passwordError?"nope":"btn-connexion"}>Connexion</button>
                 </form>
                 <small>vous n'avez pas de compte ? <span><Link className="text-danger" to="/inscription">S'inscrire</Link> </span></small>
             </div>

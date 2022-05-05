@@ -17,7 +17,7 @@ const Admin = () => {
     
     return (
         <li className="nav-item lead">
-            <Link to="/candidat" href="#topics" className="nav-link">
+            <Link to="/adminDashboard" className="nav-link">
             {
                 eleve.isAdmin !== "1" || eleve === false ? "" : "Administration"
             }
@@ -54,9 +54,9 @@ const Header = () => {
             <li className="nav-item lead">
               <Link to="/guide" className="nav-link">Guide</Link>
             </li>
-            <li className="nav-item lead">
-              <Link to="apropos" className="nav-link"> propos</Link>
-            </li>
+            {/* <li className="nav-item lead">
+              <Link to="/adminDashboard" className="nav-link">Administration</Link>
+            </li> */}
             <Admin eleve={eleve}/>
 
           </ul>
@@ -69,7 +69,7 @@ const Header = () => {
                 <button className="btn-authentification border lead rounded py-1 px-2"><Link to={`/profile/${id}`} >profile</Link></button>
             </div>
         }
-                 </div>
+        </div>
         <button className="navbar-toggler" type='button' data-bs-toggle='collapse' data-bs-target='#main-nav' aria-controls='main-nav' aria-expanded='false' aria-label='Toggle navigation'>
             <span className="navbar-toggler-icon"></span>
         </button>
