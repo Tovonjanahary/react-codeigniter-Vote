@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { VoteState } from "../context/VoteContext";
-import axios from "axios";
+import { VoteState } from "../../context/VoteContext";
 import { motion } from "framer-motion";
+import useFetch from "../../fetchData/useFetch";
 
 const Vote = () => {
-
     const { eleve } = VoteState();
     const history = useHistory();
-    const [president, setPresident] = useState(false);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if(!eleve) {
@@ -18,15 +15,7 @@ const Vote = () => {
         }
     },[history,eleve]);
 
-    useEffect(() => {
-        const abortCont = new AbortController();
-        (async function getPresident() {
-            const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat",{signal: abortCont.signal});
-            setPresident(data);
-            setLoading(false);
-        })();
-        return () => abortCont.abort();
-    },[]);
+    const { data, loading } = useFetch("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
     
     const variants = {
         visible: {
@@ -49,7 +38,7 @@ const Vote = () => {
             animate="visible"
             >
                 {
-                    president && president.map(p => (
+                    data && data.map(p => (
                         <div className="border rounded col-md-4 m-3 p-2" key={p.id_president}>
                             <p>Candidat numero : <span className="text-danger">{p.id_president}</span></p>
                             <p>{p.nom} {p.prenom}</p>

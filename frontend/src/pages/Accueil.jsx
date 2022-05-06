@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
+import Guide from './Guide';
 
 const Accueil = () => {
 
@@ -31,6 +32,7 @@ const Accueil = () => {
                     <img src="/election-illustration.png" alt="jumbotron" className="img-fluid d-none d-md-block" />
                 </div>
             </div>
+            <Guide/>
         </motion.section>
     )
 }

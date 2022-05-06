@@ -1,24 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import useFetch from '../../../fetchData/useFetch';
 
 
 const AfficherCandidat = () => {
 
-    const [president, setPresident] = useState();
-
     const getCandidat = async () => {
         await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
     }
-
-    useEffect(() => {
-      const abortCont = new AbortController();
-      (async function getPresident() {
-        const { data } = await axios.get("http://localhost:80/react-codeigniter-Vote/afficherCandidat",{signal: abortCont.signal});
-        setPresident(data);
-      })();
-      return () => abortCont.abort();
-    },[]);
+ 
+    const { data } = useFetch("http://localhost:80/react-codeigniter-Vote/afficherCandidat");
 
     const SupprimerPresident =  async (id) => {
         await axios.delete(`http://localhost:80/react-codeigniter-Vote/supprimerPresident/${id}`);
@@ -35,7 +27,7 @@ const AfficherCandidat = () => {
             </tr>
         </thead>
         <tbody>
-            { president && president.map((p) => (
+            { data && data.map((p) => (
                 <tr key={p.id_president}>
                     <td>{p.id_president}</td>
                     <td>{p.nom} {p.prenom}</td>

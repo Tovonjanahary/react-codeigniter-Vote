@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { VoteState } from "../context/VoteContext";
+import * as Scroll from 'react-scroll';
 
 const Authentification = () => {
     return(
@@ -32,19 +33,20 @@ const Header = () => {
     const { eleve } = VoteState();
     // const history = useHistory();
     const id = eleve.num_inscription;
+    let Links = Scroll.Link;
 
     const deconnexion = async () => {
         await localStorage.removeItem("premierLogin");
         // history.push("/connexion");
         window.location.href="/connexion";
     }
-
+   
     // const profile = async () => {
     //     const data = await axios.get(`http://localhost:80/fac_vote/afficher_simple_eleve/${id}`)
     // }
 
   return (
-    <nav className='navbar navbar-expand-md navbar-light bg-light py-3'>
+    <nav className='navbar navbar-expand-md navbar-light bg-light py-3 sticky-top'>
       <div className="container">
         <div className="collapse navbar-collapse justify-content-start align-center" id='main-nav'>
           <ul className="navbar-nav">
@@ -52,11 +54,14 @@ const Header = () => {
               <Link to="/" className="nav-link">Accueil</Link>
             </li>
             <li className="nav-item lead">
-              <Link to="/guide" className="nav-link">Guide</Link>
+              <Links 
+                to="guide" 
+                spy={true}
+                offset={-50} duration={500} 
+                className="nav-link guides">
+              Guide
+              </Links>
             </li>
-            {/* <li className="nav-item lead">
-              <Link to="/adminDashboard" className="nav-link">Administration</Link>
-            </li> */}
             <Admin eleve={eleve}/>
 
           </ul>

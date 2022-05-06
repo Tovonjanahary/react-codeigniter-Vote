@@ -6,7 +6,7 @@ import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import { VoteState } from '../../context/VoteContext';
 import AjouterAdmin from './AjouterAdmin';
 import Eleves from './eleves/Eleves';
-import Candidat from './president/Candidat';
+import Candidat from './candidat/Candidat';
 
 const AdminDashboard = ({history}) => {
 
@@ -22,7 +22,7 @@ const AdminDashboard = ({history}) => {
     useEffect(() => {
         if((eleve && eleve.isAdmin !== "1") || (eleve === false)) {
             // history.push("*");
-            window.location.href = "/";
+            window.location.href = "/errorPage";
         }
     },[eleve]);
 

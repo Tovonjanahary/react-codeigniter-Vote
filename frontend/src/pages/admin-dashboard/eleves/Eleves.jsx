@@ -25,15 +25,6 @@ const Eleves = () => {
         getEleve();
     };
 
-
-    // const afficheCompte = (id) => {
-    //     const { data } = await axios.get(`http://localhost:80/fac_vote/showCount/${id}`);
-    // }
-
-    // useEffect(() => {
-    //     afficheCompte();
-    // });
-
     return (
         <div className="mt-4">
             <div className="form-group mb-4">

@@ -1,6 +1,8 @@
 .sidebar {
     height: 80vh;
-    
+    position: sticky;
+    top: 0;
+    background-color: green;
 }
 
 .candidat {
