@@ -36,6 +36,7 @@ $routes->get('/', 'Home::index');
 // eleves routes:
 $routes->get("/eleves", 'ElevesController::index');
 $routes->match(['post','get'], '/creerEleve', 'ElevesController::creerEleve');
+$routes->match(['post','get'], '/creerAdmin', 'ElevesController::creerAdmin');
 $routes->match(['post','get'], '/afficher_simple_eleve/(:num)', 'ElevesController::afficher_simple_eleve/$1');
 $routes->match(['post','get'], '/showCount/(:num)', 'ElevesController::showCount/$1');
 $routes->patch('/signup/(:any)', 'ElevesController::signup/$1');

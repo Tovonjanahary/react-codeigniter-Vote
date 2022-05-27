@@ -1,49 +1,48 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { VoteState } from "../context/VoteContext";
 import * as Scroll from 'react-scroll';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useEffect } from 'react';
 
 const Authentification = () => {
-    return(
-        <div className="">
-          <button className="btn-authentification border lead rounded text-light py-1 px-2"><Link to="/connexion">Se connecter</Link></button>
-          <button className="btn-authentification border lead rounded text-light py-1 px-2"><Link to="/inscription">S'inscrire</Link></button>
-        </div>
-    )
+  return (
+    <div className="">
+      <button className="btn-authentification border lead rounded text-light py-1 px-2"><Link to="/connexion">Se connecter</Link></button>
+      <button className="btn-authentification border lead rounded text-light py-1 px-2"><Link to="/inscription">S'inscrire</Link></button>
+    </div>
+  )
 };
 
 const Admin = () => {
+  const eleveConnectee = JSON.parse(localStorage.getItem('login'));
+  useEffect(() => {
+  }, [eleveConnectee]);
 
-    const { eleve } = VoteState();
-    
-    return (
-        <li className="nav-item lead">
-            <Link to="/adminDashboard" className="nav-link">
-            {
-                eleve.isAdmin !== "1" || eleve === false ? "" : "Administration"
-            }
-            </Link>
-        </li>
-    )
+  return (
+    <li className="nav-item lead">
+      <Link to="/adminDashboard" className="nav-link">
+        {
+          !eleveConnectee || (eleveConnectee && eleveConnectee.isAdmin) !== "1" ? "" : "Administration"
+        }
+      </Link>
+    </li>
+  )
 }
-
 
 const Header = () => {
 
-    const { eleve } = VoteState();
-    // const history = useHistory();
-    const id = eleve.num_inscription;
-    let Links = Scroll.Link;
+  const eleveConnectee = JSON.parse(localStorage.getItem('login'));
+  useEffect(() => {
+  }, [eleveConnectee]);
 
-    const deconnexion = async () => {
-        await localStorage.removeItem("premierLogin");
-        // history.push("/connexion");
-        window.location.href="/connexion";
-    }
-   
-    // const profile = async () => {
-    //     const data = await axios.get(`http://localhost:80/fac_vote/afficher_simple_eleve/${id}`)
-    // }
+  const history = useHistory();
+  const id = eleveConnectee && eleveConnectee.num_inscription;
+  let Links = Scroll.Link;
+
+  const deconnexion = () => {
+    localStorage.removeItem("login");
+    history.push("/");
+  }
 
   return (
     <nav className='navbar navbar-expand-md navbar-light bg-light py-3 sticky-top'>
@@ -54,29 +53,29 @@ const Header = () => {
               <Link to="/" className="nav-link">Accueil</Link>
             </li>
             <li className="nav-item lead">
-              <Links 
-                to="guide" 
+              <Links
+                to="guide"
                 spy={true}
-                offset={-50} duration={500} 
+                offset={-50} duration={500}
                 className="nav-link guides">
-              Guide
+                Guide
               </Links>
             </li>
-            <Admin eleve={eleve}/>
+            <Admin />
 
           </ul>
         </div>
         <div className="authentification">
-        {
-            Object.keys(eleve).length === 0 ? <Authentification /> :
-            <div className="authentification d-flex">
+          {
+            !eleveConnectee ? <Authentification /> :
+              <div className="authentification d-flex">
                 <button className="btn-authentification border lead rounded text-light py-1 px-2" onClick={deconnexion}>Se deconnecter</button>
                 <button className="btn-authentification border lead rounded py-1 px-2"><Link to={`/profile/${id}`} >profile</Link></button>
-            </div>
-        }
+              </div>
+          }
         </div>
         <button className="navbar-toggler" type='button' data-bs-toggle='collapse' data-bs-target='#main-nav' aria-controls='main-nav' aria-expanded='false' aria-label='Toggle navigation'>
-            <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
       </div>
     </nav>

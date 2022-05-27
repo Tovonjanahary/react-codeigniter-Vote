@@ -111,6 +111,65 @@ class ElevesController extends ResourceController
         
     }
 
+    public function creerAdmin()
+    {
+
+        // message de validation
+        $rules = [
+            'nom' => "required",
+            'prenom' => "required",
+            "email" =>"required",
+            "password" =>"required",
+            'date_naissance' => "required",
+            'adresse' => "required",
+            'CIN' => "required",
+            'num_telephone' => "required",
+        ];
+
+        // donnee passee au requete
+        $data = [
+            'nom' => $this->request->getVar('nom'),
+            'prenom' => $this->request->getVar('prenom'),
+            'email' => $this->request->getVar('email'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'date_naissance' => $this->request->getVar('date_naissance'),
+            'adresse' =>$this->request->getVar('adresse'),
+            'CIN' => $this->request->getVar('CIN'),
+            'num_telephone' => $this->request->getVar('num_telephone'),
+            'photo' => $this->request->getVar('photo'),
+            'isAdmin' => $this->request->getVar('isAdmin'),
+        ];
+
+        $validation = \Config\Services::validation();
+
+        if(!$this->validate($rules)) {
+            $response = [
+                'status'=> 400,
+                'message'=> [
+                    'error'=> "Completez d'abord la formulaire",
+                ],
+            ];
+            return $this->respond($response);
+            
+        } else {
+            // creer un admin
+            $adminModel = new ElevesModel();
+            $admin = $adminModel->insert($data);
+    
+            $response = [
+                'status'=> 201,
+                'error'=> null,
+                'messages'=> [
+                    'success'=> "succes !"
+                ],
+                'data' => $admin
+            ];
+            
+            return $this->respondCreated($response);
+        }
+        
+    }
+
     /**
      * Add or update a model resource, from "posted" properties
      *
@@ -180,47 +239,23 @@ class ElevesController extends ResourceController
             'password' => "required"
         ];
 
-        $messages = [
-            "email" => [
-                "required" => "completez l'email",
-            ],
-            "password" => "completez le mot de passe"
-        ];
-
-        if(!$this->validate($rules, $messages)) {
-            $response = [
-                'status'=> 400,
-                'message'=> [
-                    'error'=> "veuillez completez d'abord la formulaire"
-                ]
-            ];
-            return $this->respond($response);
+        if(!$this->validate($rules)) {
+         
+            return $this->fail("veuillez completez d'abord la formulaire", 400);
 
          } else {
        
         // comparer l'email
             $findEmail = $model->where('email', $data['email'])->first();
             if(!$findEmail){
-                $response = [
-                    'status' => 404,
-                    'message' => [
-                        'error' => "cet email n'existe pas"
-                    ]
-                    ];
-                return $this->respond($response);
+                return $this->fail("cet email n'existe pas", 404);
             } else {
                 // verifier le mot de passe
                 $findUser = $findEmail['password'];
                 $comparePassword = password_verify($data['password'], $findUser);
     
                 if(!$comparePassword){
-                    $response = [
-                        'status' => 404,
-                        'message' => [
-                            'error' => "mot de passe incorrect"
-                        ]
-                        ];
-                    return $this->respond($response);
+                    return $this->fail("mot de passe incorrect", 400);
                 } else {
                     // creer un token pour l'eleve
                     $key = "jwt_secret";
@@ -231,6 +266,7 @@ class ElevesController extends ResourceController
                             'num_inscription' => $findEmail['num_inscription'],
                             'nom' => $findEmail['nom'],
                             'prenom' => $findEmail['prenom'],
+                            'id_president' => $findEmail['id_president'],
                             'isAdmin' => $findEmail['isAdmin']
                         ]
                     );
